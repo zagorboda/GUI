@@ -4,6 +4,8 @@ from tkinter import *
 
 root = Tk()
 root.title("Calculator")
+root.geometry("240x370")
+root.resizable(0, 0)
 
 text = ''
 
