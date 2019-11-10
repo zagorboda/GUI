@@ -12,15 +12,6 @@ from tkinter.messagebox import *
 root = Tk()
 root.title("Matrix Calculator")
 
-
-# c = []
-# d = []
-# b = [[0 for x in range(2)] for y in range(2)]
-
-show_empty_input = False
-show_nondigit_input = False
-
-
 btn_start_det = Button(root, text="Matrix determinant", command=lambda: det_start_screen())
 btn_start_det.grid(row=0, column=0)
 
@@ -35,13 +26,14 @@ def det_start_screen():
     entry_m.grid(row=0, column=1)
     entry_n = Entry(root)
     entry_n.grid(row=1, column=1)
-    btn_start = Button(root, text="Start", command=lambda: check(entry_m, entry_n, btn_start, label_entry_n, label_entry_m))
+    btn_start = Button(root, text="Start", command=lambda: check(entry_m, entry_n, btn_start, label_entry_n,
+                                                                 label_entry_m))
     btn_start.grid(row=3, column=0)
 
 
 def check(entry_m, entry_n, btn_start, label_entry_n, label_entry_m):
     show_empty_input = False
-    show_nondigit_input = False
+    show_non_digit_input = False
     m_correct_input = 0
     n_correct_input = 0
     global m
@@ -57,9 +49,9 @@ def check(entry_m, entry_n, btn_start, label_entry_n, label_entry_m):
                 m_correct_input += 1
 
         except ValueError:
-            if show_nondigit_input == False:
+            if show_non_digit_input == False:
                 showwarning("Warning", "Your input include non digit symbols")
-                show_nondigit_input = True
+                show_non_digit_input = True
 
     global n
     n = entry_n.get()
@@ -73,9 +65,9 @@ def check(entry_m, entry_n, btn_start, label_entry_n, label_entry_m):
             if n > 0:
                 n_correct_input += 1
         except ValueError:
-            if show_nondigit_input == False:
+            if show_non_digit_input == False:
                 showwarning("Warning", "Your input include non digit symbols")
-                show_nondigit_input = True
+                show_non_digit_input = True
 
     try:
         if int(n) != int(m):
@@ -99,16 +91,14 @@ def show():
             entry = Entry(root, width=10)
             entry.grid(row=i, column=j)
             a[i][j] = entry
-    btn1 = Button(root, text="Button", command=lambda: calculate(m, n, a))
+    btn1 = Button(root, text="Calculate", command=lambda: calculate(m, n, a))
     btn1.grid(row=i + 1, column=0, columnspan=3)
 
 
 def calculate(m, n, a):
     c = []
-    d = []
-    global show_empty_input, show_nondigit_input
     show_empty_input = False
-    show_nondigit_input = False
+    show_non_digit_input = False
     b = [[0 for x in range(n)] for y in range(m)]
     for i in range(m):
         for j in range(n):
@@ -122,41 +112,17 @@ def calculate(m, n, a):
                     c.append(b[i][j])
                     print(b[i][j])
                 except ValueError:
-                    if(show_nondigit_input == False):
+                    if show_non_digit_input == False:
                         showwarning("Warning", "Your input include non digit symbols")
-                        show_nondigit_input = True
-    d = c
-    np.array(d)
-    d = np.reshape(d, (m, n))
-    print(d)
-    print("%.6f" % np.linalg.det(d))
-    lbl1 = Label(root, text="Matrix determinant = %f" % np.linalg.det(d))
-    lbl1.grid(row=i + 1, column=0, columnspan=3)
+                        show_non_digit_input = True
 
-# entry1 = Entry(root)
-# entry1.grid(row=0, column=0)
-#
-#
-# btn1 = Button(root, text="Button", command=lambda: calculate())
-# btn1.grid(row=0, column=1)
-#
-# lbl1 = Label(root)
-# lbl1.grid(row=0, column=2)
+    if len(c) == m*n:
+        np.array(c)
+        c = np.reshape(c, (m, n))
+        print(c)
+        print("%.4f" % np.linalg.det(c))
+        lbl1 = Label(root, text="Matrix determinant = %.4f" % np.linalg.det(c))
+        lbl1.grid(row=i + 2, column=0, columnspan=3)
 
-
-# a = [[0 for x in range(2)] for y in range(2)]
-#
-# for i in range(m):
-#     for j in range(n):
-#         entry = Entry(root, width=10)
-#         entry.grid(row=i, column=j)
-#         a[i][j] = entry
-
-# command=lambda: calculate()
-# btn1 = Button(root, text="Button", command=lambda: calculate())
-# btn1.grid(row=4, column=0, columnspan=3)
-
-# lbl1 = Label(root, text="Matrix determinant = ")
-# lbl1.grid(row=5, column=0, columnspan=3)
 
 root.mainloop()
