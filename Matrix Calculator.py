@@ -22,9 +22,15 @@ btn_start_sum.grid(row=1, column=0)
 class Determinant:
 
     def __init__(self, main):
-        btn_start_det.grid_forget()
-        btn_start_rank.grid_forget()
-        btn_start_sum.grid_forget()
+        _list = root.winfo_children()
+
+        for item in _list:
+            if item.winfo_children():
+                _list.extend(item.winfo_children())
+
+        for item in _list:
+            item.grid_forget()
+
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
         self.label_entry_m = Label(root, text="Enter m:")
@@ -81,11 +87,15 @@ class Determinant:
             pass
 
         if m_correct_input == 2 and n_correct_input == 2 and n == m:
-            self.entry_m.grid_forget()
-            self.entry_n.grid_forget()
-            self.btn_start.grid_forget()
-            self.label_entry_n.grid_forget()
-            self.label_entry_m.grid_forget()
+            _list = root.winfo_children()
+
+            for item in _list:
+                if item.winfo_children():
+                    _list.extend(item.winfo_children())
+
+            for item in _list:
+                item.grid_forget()
+
             self.show()
 
     def show(self):
@@ -96,7 +106,7 @@ class Determinant:
                 entry.grid(row=i, column=j)
                 a[i][j] = entry
         btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a))
-        btn1.grid(row=i + 1, column=0, columnspan=3)
+        btn1.grid(row=m + 1, column=0, columnspan=3)
 
     def calculate(self, m, n, a):
         c = []
@@ -122,15 +132,21 @@ class Determinant:
             np.array(c)
             c = np.reshape(c, (m, n))
             lbl1 = Label(root, text="Matrix determinant = %.4f" % np.linalg.det(c))
-            lbl1.grid(row=i + 2, column=0, columnspan=3)
+            lbl1.grid(row=m + 2, column=0, columnspan=3)
 
 
 class Rank:
 
     def __init__(self, main):
-        btn_start_det.grid_forget()
-        btn_start_rank.grid_forget()
-        btn_start_sum.grid_forget()
+        _list = root.winfo_children()
+
+        for item in _list:
+            if item.winfo_children():
+                _list.extend(item.winfo_children())
+
+        for item in _list:
+            item.grid_forget()
+
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
         self.label_entry_m = Label(root, text="Enter m:")
@@ -181,11 +197,15 @@ class Rank:
                     show_non_digit_input = True
 
         if m_correct_input == 2 and n_correct_input == 2 and n == m:
-            self.entry_m.grid_forget()
-            self.entry_n.grid_forget()
-            self.btn_start.grid_forget()
-            self.label_entry_n.grid_forget()
-            self.label_entry_m.grid_forget()
+            _list = root.winfo_children()
+
+            for item in _list:
+                if item.winfo_children():
+                    _list.extend(item.winfo_children())
+
+            for item in _list:
+                item.grid_forget()
+
             self.show()
 
     def show(self):
@@ -196,7 +216,7 @@ class Rank:
                 entry.grid(row=i, column=j)
                 a[i][j] = entry
         btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a))
-        btn1.grid(row=i + 1, column=0, columnspan=3)
+        btn1.grid(row=m + 1, column=0, columnspan=3)
 
     def calculate(self, m, n, a):
         c = []
@@ -220,15 +240,20 @@ class Rank:
         np.array(c)
         c = np.reshape(c, (m, n))
         lbl1 = Label(root, text="Matrix rank = %.4f" % np.linalg.matrix_rank(c))
-        lbl1.grid(row=i + 2, column=0, columnspan=3)
+        lbl1.grid(row=m + 2, column=0, columnspan=3)
 
 
 class MatrixSum:
 
     def __init__(self, main):
-        btn_start_det.grid_forget()
-        btn_start_rank.grid_forget()
-        btn_start_sum.grid_forget()
+        _list = root.winfo_children()
+
+        for item in _list:
+            if item.winfo_children():
+                _list.extend(item.winfo_children())
+
+        for item in _list:
+            item.grid_forget()
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
         self.label_entry_m = Label(root, text="Enter m:")
@@ -279,11 +304,15 @@ class MatrixSum:
                     show_non_digit_input = True
 
         if m_correct_input == 2 and n_correct_input == 2 and n == m:
-            self.entry_m.grid_forget()
-            self.entry_n.grid_forget()
-            self.btn_start.grid_forget()
-            self.label_entry_n.grid_forget()
-            self.label_entry_m.grid_forget()
+            _list = root.winfo_children()
+
+            for item in _list:
+                if item.winfo_children():
+                    _list.extend(item.winfo_children())
+
+            for item in _list:
+                item.grid_forget()
+
             self.show()
 
     def show(self):
@@ -300,7 +329,7 @@ class MatrixSum:
                 a[i][j] = entry1
                 c[i][j] = entry2
         btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a, c))
-        btn1.grid(row=i + 1, column=0, columnspan=3)
+        btn1.grid(row=m + 1, column=0, columnspan=3)
 
     def calculate(self, m, n, a, c):
         show_empty_input = False
