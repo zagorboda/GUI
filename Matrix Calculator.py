@@ -64,15 +64,14 @@ class Determinant:
                 m_correct_input += 1
                 if m > 0:
                     m_correct_input += 1
-
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
         global n
         n = self.entry_n.get()
-        if (n == "") & (show_empty_input == False):
+        if (n == "") and (show_empty_input == False) and (show_non_digit_input == False):
             showwarning("Warning", "You have empty input")
             show_empty_input = True
         else:
@@ -82,7 +81,7 @@ class Determinant:
                 if n > 0:
                     n_correct_input += 1
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
@@ -183,13 +182,13 @@ class Rank:
                     m_correct_input = 1
 
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
         global n
         n = self.entry_n.get()
-        if (n == "") & (show_empty_input == False):
+        if (n == "") & (show_empty_input == False) and (show_non_digit_input == False):
             showwarning("Warning", "You have empty input")
             show_empty_input = True
         else:
@@ -198,7 +197,7 @@ class Rank:
                 if n > 0:
                     n_correct_input = 1
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
@@ -291,13 +290,13 @@ class MatrixSum:
                     m_correct_input += 1
 
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
         global n
         n = self.entry_n.get()
-        if (n == "") & (show_empty_input == False):
+        if (n == "") & (show_empty_input == False) and (show_non_digit_input == False):
             showwarning("Warning", "You have empty input")
             show_empty_input = True
         else:
@@ -307,11 +306,11 @@ class MatrixSum:
                 if n > 0:
                     n_correct_input += 1
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
-        if m_correct_input == 2 and n_correct_input == 2 and n == m:
+        if m_correct_input == 2 and n_correct_input == 2:
             _list = root.winfo_children()
 
             for item in _list:
@@ -423,12 +422,12 @@ class MatrixMultiplication:
                     m1_correct_input = 1
 
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
         n1 = self.entry_n1.get()
-        if (n1 == "") & (show_empty_input == False):
+        if (n1 == "") and (show_empty_input == False) and (show_non_digit_input == False):
             showwarning("Warning", "You have empty input")
             show_empty_input = True
         else:
@@ -437,12 +436,12 @@ class MatrixMultiplication:
                 if n1 > 0:
                     n1_correct_input = 1
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
         m2 = self.entry_m2.get()
-        if (m2 == "") & (show_empty_input == False):
+        if (m2 == "") and (show_empty_input == False) and (show_non_digit_input == False):
             showwarning("Warning", "You have empty input")
             show_empty_input = True
         else:
@@ -452,12 +451,12 @@ class MatrixMultiplication:
                     m2_correct_input = 1
 
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
         n2 = self.entry_n2.get()
-        if (n2 == "") & (show_empty_input == False):
+        if (n2 == "") and (show_empty_input == False) and (show_non_digit_input == False):
             showwarning("Warning", "You have empty input")
             show_empty_input = True
         else:
@@ -466,7 +465,7 @@ class MatrixMultiplication:
                 if n2 > 0:
                     n2_correct_input = 1
             except ValueError:
-                if show_non_digit_input == False:
+                if show_non_digit_input == False and show_empty_input == False:
                     showwarning("Warning", "Your input include non digit symbols")
                     show_non_digit_input = True
 
@@ -484,7 +483,8 @@ class MatrixMultiplication:
             self.show(m1, n1, m2, n2)
 
         else:
-            showwarning("Warning", "Matrix shape are incorrect. Try another one.")
+            if (show_non_digit_input == False) and (show_empty_input == False):
+                showwarning("Warning", "Matrix shape are incorrect. Try another one.")
 
     def show(self, m1, n1, m2, n2):
         a = [[0 for x in range(n1)] for y in range(m1)]
@@ -517,48 +517,57 @@ class MatrixMultiplication:
     def calculate(self, m1, n1, m2, n2, a, c):
         show_empty_input = False
         show_non_digit_input = False
+        b_count = 0
+        d_count = 0
         b = [[0 for x in range(n1)] for y in range(m1)]
         d = [[0 for x in range(n2)] for y in range(m2)]
         for i in range(m1):
             for j in range(n1):
                 b[i][j] = a[i][j].get()
-                if (b[i][j] == "") & (show_empty_input == False):
+                if (b[i][j] == "") and (show_empty_input == False) and (show_non_digit_input == False):
                     showwarning("Warning", "You have empty input")
                     show_empty_input = True
                 else:
                     try:
                         b[i][j] = int(a[i][j].get())
+                        b_count += 1
                     except ValueError:
-                        if show_non_digit_input == False:
+                        if (show_non_digit_input == False) and (show_empty_input == False):
                             showwarning("Warning", "Your input include non digit symbols")
                             show_non_digit_input = True
 
         for i in range(m2):
             for j in range(n2):
                 d[i][j] = c[i][j].get()
-                if (d[i][j] == "") & (show_empty_input == False):
+                if (d[i][j] == "") and (show_empty_input == False) and (show_non_digit_input == False):
                     showwarning("Warning", "You have empty input")
                     show_empty_input = True
                 else:
                     try:
                         d[i][j] = int(c[i][j].get())
+                        d_count += 1
                     except ValueError:
-                        if show_non_digit_input == False:
+                        if (show_non_digit_input == False) and (show_empty_input == False):
                             showwarning("Warning", "Your input include non digit symbols")
                             show_non_digit_input = True
 
-        np.array(b)
-        b = np.reshape(b, (m1, n1))
+        if (b_count == len(a)*len(a[0])) and (d_count == len(c)*len(c[0])):
+            np.array(b)
+            b = np.reshape(b, (m1, n1))
 
-        np.array(d)
-        d = np.reshape(d, (m2, n2))
+            np.array(d)
+            d = np.reshape(d, (m2, n2))
 
-        e = np.dot(b, d)
+            e = np.dot(b, d)
 
-        for i in range(m1):
-            for j in range(n2):
-                label = Label(root, width=3, text=e[i][j])
-                label.grid(row=m2+i+3, column=j, padx=3, pady=3)
+            for i in range(m1):
+                for j in range(n2):
+                    label = Label(root, width=3, text=e[i][j])
+                    label.grid(row=m2+i+3, column=j, padx=3, pady=3)
+        elif(show_non_digit_input == False) and (show_empty_input == False):
+            showwarning("Warning", "Incorrect values")
+            print(b_count, d_count)
+            print(len(a)*len(a[0]), len(c)*len(a[0]))
 
 
 root.mainloop()
