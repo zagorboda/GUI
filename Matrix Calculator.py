@@ -10,8 +10,8 @@ from tkinter.messagebox import *
 #  fix matrix compatibility
 
 root = Tk()
-
 # root.grid_columnconfigure(0, weight=1)
+
 
 class MainScreen:
 
@@ -28,13 +28,15 @@ class MainScreen:
 
         root.title("Matrix Calculator")
 
-        self.btn_start_det = Button(root, width=15, text="Matrix determinant", command=lambda: Determinant())
+        self.btn_start_det = Button(root, width=15, text="Matrix determinant", command=lambda: Determinant(),
+                                    bg='#dccdc7')
         self.btn_start_det.grid(row=0, column=0, padx=5, pady=5)
-        self.btn_start_rank = Button(root, width=15, text="Matrix rank", command=lambda: Rank())
+        self.btn_start_rank = Button(root, width=15, text="Matrix rank", command=lambda: Rank(), bg='#dccdc7')
         self.btn_start_rank.grid(row=0, column=1, padx=5, pady=5)
-        self.btn_start_sum = Button(root, width=15, text="Matrix sum", command=lambda: MatrixSum())
+        self.btn_start_sum = Button(root, width=15, text="Matrix sum", command=lambda: MatrixSum(), bg='#dccdc7')
         self.btn_start_sum.grid(row=1, column=0, padx=5, pady=5)
-        self.btn_start_sum = Button(root, width=15, text="Matrix multiplication", command=lambda: MatrixMultiplication())
+        self.btn_start_sum = Button(root, width=15, text="Matrix multiplication", command=lambda: MatrixMultiplication()
+                                    ,bg='#dccdc7')
         self.btn_start_sum.grid(row=1, column=1, padx=5, pady=5)
 
 
@@ -54,13 +56,13 @@ class Determinant:
 
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
-        self.label_entry_m = Label(root, text="Enter m:")
-        self.label_entry_n = Label(root, text="Enter n:")
+        self.label_entry_m = Label(root, text="Enter m:", bg='#dccdc7')
+        self.label_entry_n = Label(root, text="Enter n:", bg='#dccdc7')
         self.label_entry_m.grid(row=0, column=0, padx=3, pady=3)
         self.label_entry_n.grid(row=1, column=0, padx=3, pady=3)
         self.entry_m.grid(row=0, column=1)
         self.entry_n.grid(row=1, column=1)
-        self.btn_start = Button(root, text="Start", command=lambda: self.check())
+        self.btn_start = Button(root, text="Start", command=lambda: self.check(), bg='#dccdc7')
         self.btn_start.grid(row=3, column=0, padx=3, pady=3)
         self.label = Label()
 
@@ -126,7 +128,7 @@ class Determinant:
                 entry = Entry(root, width=10)
                 entry.grid(row=i, column=j, padx=3, pady=3)
                 a[i][j] = entry
-        btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a))
+        btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a), bg='#dccdc7')
         btn1.grid(row=m + 1, column=0, columnspan=3, padx=3, pady=3)
 
     def calculate(self, m, n, a):
@@ -153,7 +155,7 @@ class Determinant:
             np.array(c)
             c = np.reshape(c, (m, n))
             self.label.grid_forget()
-            self.label.configure(text="Matrix determinant = %f" % np.linalg.det(c))
+            self.label.configure(text="Matrix determinant = %f" % np.linalg.det(c), bg='#dccdc7')
             self.label.grid(row=m + 2, column=0, columnspan=n, padx=3, pady=3)
 
 
@@ -173,13 +175,13 @@ class Rank:
 
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
-        self.label_entry_m = Label(root, text="Enter m:")
-        self.label_entry_n = Label(root, text="Enter n:")
+        self.label_entry_m = Label(root, text="Enter m:", bg='#dccdc7')
+        self.label_entry_n = Label(root, text="Enter n:", bg='#dccdc7')
         self.label_entry_m.grid(row=0, column=0)
         self.label_entry_n.grid(row=1, column=0)
         self.entry_m.grid(row=0, column=1, padx=3, pady=3)
         self.entry_n.grid(row=1, column=1, padx=3, pady=3)
-        self.btn_start = Button(root, text="Start", command=lambda: self.check())
+        self.btn_start = Button(root, text="Start", command=lambda: self.check(), bg='#dccdc7')
         self.btn_start.grid(row=3, column=0, padx=3, pady=3)
         self.label = Label()
 
@@ -238,7 +240,7 @@ class Rank:
                 entry = Entry(root, width=10)
                 entry.grid(row=i, column=j, padx=3, pady=3)
                 a[i][j] = entry
-        btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a))
+        btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a), bg='#dccdc7')
         btn1.grid(row=m + 1, column=0, columnspan=3, padx=3, pady=3)
 
     def calculate(self, m, n, a):
@@ -263,7 +265,7 @@ class Rank:
         np.array(c)
         c = np.reshape(c, (m, n))
         self.label.grid_forget()
-        self.label.configure(text="Matrix rank = " + str(np.linalg.matrix_rank(c)))
+        self.label.configure(text="Matrix rank = " + str(np.linalg.matrix_rank(c)), bg='#dccdc7')
         self.label.grid(row=m + 2, column=0, columnspan=n, padx=3, pady=3)
 
 
@@ -283,13 +285,13 @@ class MatrixSum:
 
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
-        self.label_entry_m = Label(root, text="Enter m:")
-        self.label_entry_n = Label(root, text="Enter n:")
+        self.label_entry_m = Label(root, text="Enter m:", bg='#dccdc7')
+        self.label_entry_n = Label(root, text="Enter n:", bg='#dccdc7')
         self.label_entry_m.grid(row=0, column=0, padx=3, pady=3)
         self.label_entry_n.grid(row=1, column=0, padx=3, pady=3)
         self.entry_m.grid(row=0, column=1, padx=3, pady=3)
         self.entry_n.grid(row=1, column=1, padx=3, pady=3)
-        self.btn_start = Button(root, text="Start", command=lambda: self.check())
+        self.btn_start = Button(root, text="Start", command=lambda: self.check(), bg='#dccdc7')
         self.btn_start.grid(row=3, column=0, padx=3, pady=3)
         self.label = Label()
 
@@ -350,13 +352,13 @@ class MatrixSum:
             for j in range(n):
                 entry1 = Entry(root, width=10)
                 entry1.grid(row=i, column=j, padx=3, pady=3)
-                label_empty = Label(root, width=5)
+                label_empty = Label(root, width=5, bg='#dccdc7')
                 label_empty.grid(row=i, column=n+1, padx=3, pady=3)
                 entry2 = Entry(root, width=10)
                 entry2.grid(row=i, column=n+j+2, padx=3, pady=3)
                 a[i][j] = entry1
                 c[i][j] = entry2
-        btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a, c))
+        btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m, n, a, c), bg='#dccdc7')
         btn1.grid(row=m + 1, column=0, columnspan=3, padx=3, pady=3)
 
     def calculate(self, m, n, a, c):
@@ -391,7 +393,7 @@ class MatrixSum:
         if (b_count == len(a)*len(a[0])) and (d_count == len(c)*len(c[0])):
             for i in range(m):
                 for j in range(n):
-                    self.label = Label(root, width=3, text=b[i][j] + d[i][j])
+                    self.label = Label(root, width=3, text=b[i][j] + d[i][j], bg='#dccdc7')
                     self.label.grid(row=i+m+2, column=j, padx=3, pady=3)
 
 
@@ -414,21 +416,21 @@ class MatrixMultiplication:
         self.entry_m2 = Entry(root)
         self.entry_n2 = Entry(root)
 
-        self.label_entry_m1 = Label(root, text="Enter m1:")
-        self.label_entry_n1 = Label(root, text="Enter n1:")
+        self.label_entry_m1 = Label(root, text="Enter m1:", bg='#dccdc7')
+        self.label_entry_n1 = Label(root, text="Enter n1:", bg='#dccdc7')
         self.label_entry_m1.grid(row=0, column=0, padx=3, pady=3)
         self.label_entry_n1.grid(row=1, column=0, padx=3, pady=3)
         self.entry_m1.grid(row=0, column=1, padx=3, pady=3)
         self.entry_n1.grid(row=1, column=1, padx=3, pady=3)
 
-        self.label_entry_m2 = Label(root, text="Enter m2:")
-        self.label_entry_n2 = Label(root, text="Enter n2:")
+        self.label_entry_m2 = Label(root, text="Enter m2:", bg='#dccdc7')
+        self.label_entry_n2 = Label(root, text="Enter n2:", bg='#dccdc7')
         self.label_entry_m2.grid(row=0, column=2, padx=3, pady=3)
         self.label_entry_n2.grid(row=1, column=2, padx=3, pady=3)
         self.entry_m2.grid(row=0, column=3, padx=3, pady=3)
         self.entry_n2.grid(row=1, column=3, padx=3, pady=3)
 
-        self.btn_start = Button(root, text="Start", command=lambda: self.check())
+        self.btn_start = Button(root, text="Start", command=lambda: self.check(), bg='#dccdc7')
         self.btn_start.grid(row=3, column=0, padx=3, pady=3)
 
     def check(self):
@@ -521,7 +523,7 @@ class MatrixMultiplication:
             for j in range(n1):
                 entry1 = Entry(root, width=10)
                 entry1.grid(row=i+1, column=j, padx=3, pady=3)
-                label_empty = Label(root, width=5)
+                label_empty = Label(root, width=5, bg='#dccdc7')
                 label_empty.grid(row=i+1, column=n1+1, padx=3, pady=3)
                 # entry2 = Entry(root, width=10)
                 # entry2.grid(row=i+1, column=n1+j+2)
@@ -539,7 +541,7 @@ class MatrixMultiplication:
                 # a[i][j] = entry1
                 c[i][j] = entry2
 
-        btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m1, n1, m2, n2, a, c))
+        btn1 = Button(root, text="Calculate", command=lambda: self.calculate(m1, n1, m2, n2, a, c), bg='#dccdc7')
         btn1.grid(row=m1+1, column=0, padx=3, pady=3)
 
     def calculate(self, m1, n1, m2, n2, a, c):
@@ -590,16 +592,26 @@ class MatrixMultiplication:
 
             for i in range(m1):
                 for j in range(n2):
-                    label = Label(root, width=3, text=e[i][j])
+                    label = Label(root, width=3, text=e[i][j], bg='#dccdc7')
                     label.grid(row=m2+i+3, column=j, padx=3, pady=3)
         elif(show_non_digit_input == False) and (show_empty_input == False):
             showwarning("Warning", "Incorrect values")
-            print(b_count, d_count)
-            print(len(a)*len(a[0]), len(c)*len(a[0]))
 
 
 if __name__ == "__main__":
     MainScreen()
 
+main_menu = Menu(root)
+
+first_item = Menu(main_menu, tearoff=0)
+main_menu.add_cascade(label="Open", menu=first_item)
+
+first_item.add_command(label="Main Screen", command=MainScreen)
+first_item.add_command(label="Matrix Determinant", command=Determinant)
+first_item.add_command(label="Matrix Rank", command=Rank)
+first_item.add_command(label="Matrix Sum", command=MatrixSum)
+first_item.add_command(label="Matrix Multiplication", command=MatrixMultiplication)
+
+root.configure(bg='#dccdc7', menu=main_menu, padx=5, pady=5)
 
 root.mainloop()
