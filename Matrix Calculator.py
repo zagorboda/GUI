@@ -10,18 +10,32 @@ from tkinter.messagebox import *
 #  fix matrix compatibility
 
 root = Tk()
-root.title("Matrix Calculator")
 
 # root.grid_columnconfigure(0, weight=1)
 
-btn_start_det = Button(root, width=15, text="Matrix determinant", command=lambda: Determinant())
-btn_start_det.grid(row=0, column=0, padx=5, pady=5)
-btn_start_rank = Button(root, width=15, text="Matrix rank", command=lambda: Rank())
-btn_start_rank.grid(row=0, column=1, padx=5, pady=5)
-btn_start_sum = Button(root, width=15, text="Matrix sum", command=lambda: MatrixSum())
-btn_start_sum.grid(row=1, column=0, padx=5, pady=5)
-btn_start_sum = Button(root, width=15, text="Matrix multiplication", command=lambda: MatrixMultiplication())
-btn_start_sum.grid(row=1, column=1, padx=5, pady=5)
+class MainScreen:
+
+    def __init__(self):
+
+        _list = root.winfo_children()
+
+        for item in _list:
+            if item.winfo_children():
+                _list.extend(item.winfo_children())
+
+        for item in _list:
+            item.grid_forget()
+
+        root.title("Matrix Calculator")
+
+        self.btn_start_det = Button(root, width=15, text="Matrix determinant", command=lambda: Determinant())
+        self.btn_start_det.grid(row=0, column=0, padx=5, pady=5)
+        self.btn_start_rank = Button(root, width=15, text="Matrix rank", command=lambda: Rank())
+        self.btn_start_rank.grid(row=0, column=1, padx=5, pady=5)
+        self.btn_start_sum = Button(root, width=15, text="Matrix sum", command=lambda: MatrixSum())
+        self.btn_start_sum.grid(row=1, column=0, padx=5, pady=5)
+        self.btn_start_sum = Button(root, width=15, text="Matrix multiplication", command=lambda: MatrixMultiplication())
+        self.btn_start_sum.grid(row=1, column=1, padx=5, pady=5)
 
 
 class Determinant:
@@ -35,6 +49,8 @@ class Determinant:
 
         for item in _list:
             item.grid_forget()
+
+        root.title("Matrix Determinant")
 
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
@@ -126,7 +142,7 @@ class Determinant:
                     show_empty_input = True
                 else:
                     try:
-                        b[i][j] = int(a[i][j].get())
+                        b[i][j] = float(a[i][j].get())
                         c.append(b[i][j])
                     except ValueError:
                         if show_non_digit_input == False:
@@ -152,6 +168,8 @@ class Rank:
 
         for item in _list:
             item.grid_forget()
+
+        root.title("Matrix Rank")
 
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
@@ -236,7 +254,7 @@ class Rank:
                     show_empty_input = True
                 else:
                     try:
-                        b[i][j] = int(a[i][j].get())
+                        b[i][j] = float(a[i][j].get())
                         c.append(b[i][j])
                     except ValueError:
                         if show_non_digit_input == False:
@@ -260,6 +278,9 @@ class MatrixSum:
 
         for item in _list:
             item.grid_forget()
+
+        root.title("Matrix Sum")
+
         self.entry_m = Entry(root)
         self.entry_n = Entry(root)
         self.label_entry_m = Label(root, text="Enter m:")
@@ -341,21 +362,25 @@ class MatrixSum:
     def calculate(self, m, n, a, c):
         show_empty_input = False
         show_non_digit_input = False
+        b_count = 0
+        d_count = 0
         b = [[0 for x in range(n)] for y in range(m)]
         d = [[0 for x in range(n)] for y in range(m)]
         for i in range(m):
             for j in range(n):
                 b[i][j] = a[i][j].get()
                 d[i][j] = c[i][j].get()
-                if (b[i][j] == "") & (d[i][j] == "") & (show_empty_input == False):
+                if (b[i][j] == "") & (d[i][j] == "") & (show_empty_input == False) and (show_non_digit_input == False):
                     showwarning("Warning", "You have empty input")
                     show_empty_input = True
                 else:
                     try:
-                        b[i][j] = int(a[i][j].get())
-                        d[i][j] = int(c[i][j].get())
+                        b[i][j] = float(a[i][j].get())
+                        b_count += 1
+                        d[i][j] = float(c[i][j].get())
+                        d_count += 1
                     except ValueError:
-                        if show_non_digit_input == False:
+                        if show_non_digit_input == False and show_empty_input == False:
                             showwarning("Warning", "Your input include non digit symbols")
                             show_non_digit_input = True
 
@@ -363,10 +388,11 @@ class MatrixSum:
         #     for j in range(n):
         #         self.label.grid_forget()
 
-        for i in range(m):
-            for j in range(n):
-                self.label = Label(root, width=3, text=b[i][j] + d[i][j])
-                self.label.grid(row=i+m+2, column=j, padx=3, pady=3)
+        if (b_count == len(a)*len(a[0])) and (d_count == len(c)*len(c[0])):
+            for i in range(m):
+                for j in range(n):
+                    self.label = Label(root, width=3, text=b[i][j] + d[i][j])
+                    self.label.grid(row=i+m+2, column=j, padx=3, pady=3)
 
 
 class MatrixMultiplication:
@@ -380,6 +406,8 @@ class MatrixMultiplication:
 
         for item in _list:
             item.grid_forget()
+
+        root.title("Matrix Multiplication")
 
         self.entry_m1 = Entry(root)
         self.entry_n1 = Entry(root)
@@ -529,7 +557,7 @@ class MatrixMultiplication:
                     show_empty_input = True
                 else:
                     try:
-                        b[i][j] = int(a[i][j].get())
+                        b[i][j] = float(a[i][j].get())
                         b_count += 1
                     except ValueError:
                         if (show_non_digit_input == False) and (show_empty_input == False):
@@ -544,7 +572,7 @@ class MatrixMultiplication:
                     show_empty_input = True
                 else:
                     try:
-                        d[i][j] = int(c[i][j].get())
+                        d[i][j] = float(c[i][j].get())
                         d_count += 1
                     except ValueError:
                         if (show_non_digit_input == False) and (show_empty_input == False):
@@ -568,6 +596,10 @@ class MatrixMultiplication:
             showwarning("Warning", "Incorrect values")
             print(b_count, d_count)
             print(len(a)*len(a[0]), len(c)*len(a[0]))
+
+
+if __name__ == "__main__":
+    MainScreen()
 
 
 root.mainloop()
